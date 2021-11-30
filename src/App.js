@@ -6,12 +6,10 @@ import { useState, useEffect } from 'react';
 import UserContext from './UserContext';
 import JoblyAPI from './api';
 
-const DEFAULT_USER = {username: null, firstName: null, lastName: null, email: null, isAdmin: null, applications: []}
-
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
-  /** Component Mount, attempt to read an user info from local storage */
+  /** Component Mount, attempt to read a user info from local storage */
   useEffect( () => {
     async function loadUser(token, username){
       JoblyAPI.token = token;

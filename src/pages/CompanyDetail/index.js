@@ -1,6 +1,6 @@
 // import Placeholder from "../../components/placeholder";
 import { useState, useEffect } from "react";
-import { useParams, Navigate } from "react-router";
+import { useParams } from "react-router";
 import JobList from "../../components/JobList";
 import JoblyAPI from "../../api";
 
@@ -16,7 +16,7 @@ const CompanyDetailPage = () => {
       setCompany(c);
     }
     loadCompany();
-  },[])
+  }, [handle])
 
   // To Do: Make Company Info header component
   return(

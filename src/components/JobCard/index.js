@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
 import { addCommas } from "../../utils";
 
+/** To Do: Add an apply button to the card */
+
 const JobCard = ({id, title, salary, equity, companyHandle, companyName}) => {
   const salaryFormatted = addCommas(salary);
   return (
