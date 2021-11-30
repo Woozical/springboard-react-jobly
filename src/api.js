@@ -1,4 +1,6 @@
 import axios from "axios";
+// For now, use a testing auth token
+import token from './TEST_TOKEN';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -156,8 +158,7 @@ class JoblyAPI {
   }
 }
 
-// For now, use a testing auth token
-import token from './TEST_TOKEN';
+
 JoblyAPI.token = token;
 
 export default JoblyAPI;

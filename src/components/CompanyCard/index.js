@@ -1,12 +1,13 @@
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+import "./style.css";
 
 const CompanyCard = ({handle, name, description, logo}) => {
   return (
-    <Card>
+    <Card className="CompanyCard">
       <CardBody>
         <CardTitle tag="h6">
           {name}
-          {logo && <img alt={name} style={{width: "100px"}} src={logo} className="float-right ml-5" />}
+          {logo && <img alt={name} src={logo} className="float-right ml-5" />}
         </CardTitle>
         <CardText>
           {description}
