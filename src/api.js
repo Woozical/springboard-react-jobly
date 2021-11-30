@@ -156,6 +156,18 @@ class JoblyAPI {
       console.error(err);
     }
   }
+
+  /** POSTs to /auth/token with given credentials to receive a new auth token
+   *  credentials is an object like so: { username: string, password: string }
+   */
+  static async getToken(credentials){
+    try {
+      let res = await this.request(`auth/token`, credentials, "post");
+      return res.data.token;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 
