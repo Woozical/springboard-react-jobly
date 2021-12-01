@@ -1,4 +1,4 @@
-// import Placeholder from "../../components/placeholder";
+import { useAuthenticated } from "../../hooks";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import JobList from "../../components/JobList";
@@ -16,7 +16,10 @@ const CompanyDetailPage = () => {
       setCompany(c);
     }
     loadCompany();
-  }, [handle])
+  }, [handle]);
+
+  const [auth, redirect] = useAuthenticated("/login");
+  if (!auth) return redirect;
 
   // To Do: Make Company Info header component
   return(

@@ -2,10 +2,10 @@ import JobList from "../../components/JobList";
 import NameSearchBar from "../../components/NameSearchBar";
 import JoblyAPI from "../../api";
 import { useEffect, useState } from "react";
+import { useAuthenticated } from "../../hooks";
 
 
 const JobsPage = () => {
-
   const [jobs, setJobs] = useState([]);
   const [filters, setFilters] = useState({});
 
@@ -21,6 +21,9 @@ const JobsPage = () => {
   const updateTitleFilter =({ name }) => {
     setFilters(f => ({...f, title: name}))
   }
+
+  const [auth, redirect] = useAuthenticated("/login");
+  if (!auth) return redirect;
 
   return (
   <main>

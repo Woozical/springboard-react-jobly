@@ -45,7 +45,7 @@ const App = () => {
     JoblyAPI.token = "";
     setCurrentUser(null);
   }
-
+  // To do: Improve API error response handling
   const signup = async ({username, password, firstName, lastName, email}) => {
     const token = await JoblyAPI.registerUser({username, password, firstName, lastName, email});
     if (token){

@@ -2,6 +2,7 @@ import CompanyList from "../../components/CompanyList";
 import NameSearchBar from "../../components/NameSearchBar";
 import JoblyAPI from "../../api";
 import { useEffect, useState } from "react";
+import { useAuthenticated } from "../../hooks";
 
 
 const CompaniesPage = () => {
@@ -21,6 +22,9 @@ const CompaniesPage = () => {
   const updateNameFilter =({ name }) => {
     setFilters(f => ({...f, name}))
   }
+
+  const [auth, redirect] = useAuthenticated("/login");
+  if (!auth) return redirect;
 
   return (
   <main>

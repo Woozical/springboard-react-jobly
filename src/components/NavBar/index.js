@@ -21,14 +21,14 @@ const NavBar = () => {
         
         <Collapse navbar isOpen={isOpen}>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink to="/companies">Companies</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/jobs">Jobs</NavLink>
-            </NavItem>
             { currentUser ?
               <>
+              <NavItem>
+                <NavLink to="/companies">Companies</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/jobs">Jobs</NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink to="/profile">{currentUser.username}</NavLink>
               </NavItem>
