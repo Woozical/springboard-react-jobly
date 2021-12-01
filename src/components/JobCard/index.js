@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
 import { addCommas } from "../../utils";
+import "./style.css";
 
 
 const JobCard = ({id, title, salary, equity, companyHandle, companyName, applied, apply, placeholder}) => {

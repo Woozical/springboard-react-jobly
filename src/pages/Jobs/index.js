@@ -46,7 +46,7 @@ const JobsPage = () => {
         <div className="text-start">
           <div className="row">
             <div className="col-lg-6 col-sm-12">
-              <NameSearchBar submitCallback={updateFilters} fieldName="title" placeholder="Search by job title" />
+              <NameSearchBar submitCallback={updateFilters} fieldName="title" placeholder="Filter by job title" />
             </div>
             <div className="col-lg-4 col-sm-9">
               <NumberDrop

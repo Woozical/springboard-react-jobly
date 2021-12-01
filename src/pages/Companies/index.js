@@ -46,7 +46,7 @@ const CompaniesPage = () => {
       <div className="text-start">
         <div className="row">
           <div className="col-md-6 col-sm-12">
-            <NameSearchBar submitCallback={updateFilters}/>
+            <NameSearchBar submitCallback={updateFilters} placeholder="Filter by company name" />
           </div>
           <div className="col-md-3 col-sm-6">
             <NumberDrop
