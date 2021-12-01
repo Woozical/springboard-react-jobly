@@ -14,13 +14,13 @@ const NavBar = () => {
 
   return (
     <div>
-      <Navbar color="dark" expand="md" dark>
+      <Navbar color="dark" expand="sm" dark>
         <NavLink to="/" className="navbar-brand">Jobly</NavLink>
         
         <NavbarToggler onClick={toggleOpen} />
         
-        <Collapse navbar isOpen={isOpen}>
-          <Nav className="ml-auto" navbar>
+        <Collapse className="justify-content-end" navbar isOpen={isOpen}>
+          <Nav navbar>
             { currentUser ?
               <>
               <NavItem>

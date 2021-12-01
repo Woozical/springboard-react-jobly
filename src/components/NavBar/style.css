@@ -1,5 +1,4 @@
 nav {
-  background-color: black;
   box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
 }
 
@@ -15,8 +14,7 @@ nav a {
 
 nav a.active {
   color: #f0f2f5;
-  font-weight: bold;
-  border-bottom: 3px solid;
+  border-bottom: 2px solid;
   box-sizing: border-box;
 }
 
@@ -34,5 +32,5 @@ nav a.active.navbar-brand {
 }
 
 nav a:not(.navbar-brand):hover {
-  font-weight: bold;
+  color: #8bb9ff;
 }
