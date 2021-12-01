@@ -32,12 +32,12 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
           <Label htmlFor="edit-lastName"><b>Last Name</b></Label>
           <Input onChange={handleChange} type="text" id="edit-lastName" name="lastName" value={formData.lastName} />
         </FormGroup>
-        <FormGroup>
-          <Label htmlFor="edit-password"><b>Confirm Password:</b></Label>
+        <FormGroup className="text-center mt-4">
+          <Label htmlFor="edit-password"><b>Confirm Password</b></Label>
           <Input onChange={handleChange} type="password" id="edit-password" name="password" value={formData.password} />
         </FormGroup>
         <div className="text-end">
-          <Button color="success">Save Changes</Button>
+          <Button className="mt-4" block color="success">Save Changes</Button>
         </div>
       </Form>
       </CardBody>
