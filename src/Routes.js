@@ -6,6 +6,7 @@ import JobsPage from "./pages/Jobs";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import ProfilePage from "./pages/Profile";
+import NotFound404 from "./components/NotFound404";
 
 /** To Do: 404 Route handler */
 
@@ -19,6 +20,7 @@ const PageRoutes = () => {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/" element={<HomePage />} />
+      <Route path="*" element={<NotFound404 />} />
     </Routes>
   )
 }

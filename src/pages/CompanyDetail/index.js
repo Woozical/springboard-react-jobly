@@ -2,6 +2,8 @@ import { useAuthenticated } from "../../hooks";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import JobList from "../../components/JobList";
+import CompanyHeader from "../../components/CompanyHeader";
+import NotFound404 from "../../components/NotFound404";
 import JoblyAPI from "../../api";
 
 const CompanyDetailPage = () => {
@@ -12,7 +14,6 @@ const CompanyDetailPage = () => {
   useEffect( () => {
     async function loadCompany(){
       const c = await JoblyAPI.getCompany(handle);
-      // if !c, return 404 component
       setCompany(c);
     }
     loadCompany();
@@ -20,13 +21,11 @@ const CompanyDetailPage = () => {
 
   const [auth, redirect] = useAuthenticated("/login");
   if (!auth) return redirect;
+  if (!company) return <NotFound404 />
 
-  // To Do: Make Company Info header component
   return(
     <main>
-      <h1>{company.name}</h1>
-      <h6>Employees: {company.numEmployees}</h6>
-      <p>{company.description}</p>
+      <CompanyHeader {...company} />
       <JobList jobs={company.jobs} />
     </main>
   )
