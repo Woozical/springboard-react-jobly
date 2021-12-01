@@ -138,7 +138,7 @@ class JoblyAPI {
   static async patchUser(username, data){
     try {
       let res = await this.request(`users/${username}`, data, "patch");
-      return res.data;
+      return res.data.user;
     } catch (err) {
       console.error(err);
     }

@@ -25,7 +25,7 @@ const SignupForm = ({submitCallback}) => {
       <input onChange={handleChange} type="text" id="login-lastName" name="lastName" value={formData.lastName} />
       <label htmlFor="login-password">Password</label>
       <input onChange={handleChange} type="password" id="login-password" name="password" value={formData.password} />
-      <button>Login</button>
+      <button>Sign Up</button>
     </form>
   )
 }

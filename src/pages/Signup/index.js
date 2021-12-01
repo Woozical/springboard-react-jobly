@@ -9,7 +9,7 @@ const SignupPage = () => {
   if (auth) return redirect;
   return (
     <main>
-      <h1>Log In</h1>
+      <h1>Sign Up</h1>
       <SignupForm submitCallback={signup} />
     </main>
   )
