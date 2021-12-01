@@ -8,18 +8,31 @@ import JoblyAPI from './api';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
+  /** Outside of just looking nice, we NEED a loading component for App, as all pages look
+   *  at currentUser, which is derived from an AJAX call. If we didn't have this, navigating
+   *  directly to a page via address bar would not work as it would check currentUser (which isnt loaded yet)
+   *  and redirect to login / home page.
+   */
+  const [loading, setIsLoading] = useState(true);
+
   /** Component Mount, attempt to read user info from local storage */
   useEffect( () => {
     async function loadUser(token, username){
       JoblyAPI.token = token;
       const user = await JoblyAPI.getUserApps(username, true);
-      if (user) setCurrentUser(user);
+      if (user){
+        setCurrentUser(user);
+        setIsLoading(false);
+      }
     }
 
     const localToken = localStorage.getItem("jobly-token");
     const localUsername = localStorage.getItem("jobly-username");
-    if (localToken && localUsername) loadUser(localToken, localUsername);
+    if (localToken && localUsername){
+      loadUser(localToken, localUsername);
+    } else {
+      setIsLoading(false);
+    };
   } , []);
 
   /** Attempts to authenticate with API, if successful updates state and saves info to localStorage */
@@ -79,7 +92,7 @@ const App = () => {
       <div className="App">
         <BrowserRouter>
           <NavBar />
-          <PageRoutes />
+          {loading ? <p>Loading...</p> : <PageRoutes />}
         </BrowserRouter>
       </div>
     </UserContext.Provider>
