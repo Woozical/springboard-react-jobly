@@ -19,10 +19,11 @@ const App = () => {
   useEffect( () => {
     async function loadUser(token, username){
       JoblyAPI.token = token;
-      const user = await JoblyAPI.getUserApps(username, true);
-      if (user){
+      try {
+        const user = await JoblyAPI.getUserApps(username, true);
         setCurrentUser(user);
-        
+      } catch (err) {
+        console.error(err);
       }
       setIsLoading(false);
     }
@@ -38,19 +39,18 @@ const App = () => {
 
   /** Attempts to authenticate with API, if successful updates state and saves info to localStorage */
   const login = async ({username, password}) => {
-    const token = await JoblyAPI.getToken({username, password});
-    // Will need to test and address cases where token is good, but user isnt
-    if (token){
+    try {
+      const token = await JoblyAPI.getToken({username, password});
       JoblyAPI.token = token;
       const user = await JoblyAPI.getUserApps(username, true);
-      if (user){
-        localStorage.setItem("jobly-token", token);
-        localStorage.setItem("jobly-username", user.username);
-        setCurrentUser(user);
-        return true;
-      }
+      localStorage.setItem("jobly-token", token);
+      localStorage.setItem("jobly-username", user.username);
+      setCurrentUser(user);
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
     }
-    return false;
   }
 
   const logout = () => {
@@ -59,7 +59,7 @@ const App = () => {
     JoblyAPI.token = "";
     setCurrentUser(null);
   }
-  // To do: Improve API error response handling
+
   const signup = async ({username, password, firstName, lastName, email}) => {
     try {
       const token = await JoblyAPI.registerUser({username, password, firstName, lastName, email});
@@ -74,19 +74,31 @@ const App = () => {
   }
 
   const editUser = async ({username, password, firstName, lastName, email}) => {
-    // Confirm password by getting new auth token
-    const token = await JoblyAPI.getToken({username, password});
-    if (token){
+    try {
+      // Confirm password by getting new auth token
+      const token = await JoblyAPI.getToken({username, password});
       JoblyAPI.token = token;
       const user = await JoblyAPI.patchUser(username, {firstName, lastName, email});
-      if (user){
-        localStorage.setItem("jobly-token", token);
-        localStorage.setItem("jobly-username", user.username);
-        setCurrentUser( (current) => {
-          return {...current, firstName, lastName, email}
-        });
-      }
+      localStorage.setItem("jobly-token", token);
+      localStorage.setItem("jobly-username", user.username);
+      setCurrentUser( (current) => {
+        return {...current, firstName, lastName, email}
+      });
+      return [true, user];
+    } catch (err) {
+      return [false, err.message];
     }
+    // if (token){
+    //   JoblyAPI.token = token;
+    //   const user = await JoblyAPI.patchUser(username, {firstName, lastName, email});
+    //   if (user){
+    //     localStorage.setItem("jobly-token", token);
+    //     localStorage.setItem("jobly-username", user.username);
+    //     setCurrentUser( (current) => {
+    //       return {...current, firstName, lastName, email}
+    //     });
+    //   }
+    // }
   }
 
   const apply = async (jobID) => {

@@ -27,9 +27,9 @@ const SignupForm = ({submitCallback}) => {
     evt.preventDefault();
     const res = validateFormData(formData, schema);
     if (res.success){
-      const [signupAttempt, apiResponse] = await submitCallback(formData);
-      if (!signupAttempt){
-        // On a failed attempt, signupResult is the API's error response
+      const [signupResult, apiResponse] = await submitCallback(formData);
+      if (!signupResult){
+        // On a failed attempt, move the API's error response into feedback state
         setFormFeedback({...DEFAULT_FEEDBACK_STATE, apiResponse, failedSignup: true});
       }
     } else {
@@ -72,7 +72,12 @@ const SignupForm = ({submitCallback}) => {
           
           <FormGroup>
             <Label htmlFor="login-firstName"><b>First name</b></Label>
-            <Input onChange={handleChange} type="text" id="login-firstName" name="firstName" value={formData.firstName}
+            <Input
+              onChange={handleChange}
+              type="text"
+              id="login-firstName"
+              name="firstName"
+              value={formData.firstName}
               invalid={formFeedback.firstName.length > 0} />
             <FormFeedback>
               {formFeedback.firstName.map((msg, i) => <small key={`firstName-${i}`}>{msg} <br/></small>)}
@@ -81,7 +86,12 @@ const SignupForm = ({submitCallback}) => {
           
           <FormGroup>
             <Label htmlFor="login-lastName"><b>Last name</b></Label>
-            <Input onChange={handleChange} type="text" id="login-lastName" name="lastName" value={formData.lastName}
+            <Input
+              onChange={handleChange}
+              type="text"
+              id="login-lastName"
+              name="lastName"
+              value={formData.lastName}
               invalid={formFeedback.lastName.length > 0} />
             <FormFeedback>
               {formFeedback.lastName.map((msg, i) => <small key={`lastName-${i}`}>{msg} <br/></small>)}
@@ -90,7 +100,12 @@ const SignupForm = ({submitCallback}) => {
           
           <FormGroup>
             <Label htmlFor="login-password"><b>Password</b></Label>
-            <Input onChange={handleChange} type="password" id="login-password" name="password" value={formData.password}
+            <Input
+              onChange={handleChange}
+              type="password"
+              id="login-password"
+              name="password"
+              value={formData.password}
               invalid={formFeedback.password.length > 0} />
             <FormFeedback>
               {formFeedback.password.map((msg, i) => <small key={`password-${i}`}>{msg} <br/></small>)}

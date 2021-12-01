@@ -108,7 +108,7 @@ class JoblyAPI {
       let res = await this.request(`users/${username}/applications`);
       return fullData ? res.data.user : res.data.user.applications;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 
@@ -139,7 +139,7 @@ class JoblyAPI {
       let res = await this.request(`users/${username}`, data, "patch");
       return res.data.user;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 
@@ -164,7 +164,7 @@ class JoblyAPI {
       let res = await this.request(`auth/token`, credentials, "post");
       return res.data.token;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 

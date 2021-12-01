@@ -1,4 +1,8 @@
 {
+  "username" : {
+    "type" : "string",
+    "required" : true
+  },
   "firstName" : {
     "maxLength" : 30,
     "type" : "string",
