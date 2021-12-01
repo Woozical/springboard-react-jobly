@@ -25,6 +25,10 @@ class JoblyAPI {
       return await axios({ url, method, data, params, headers });
     } catch (err) {
       console.error("API Error:", err.response);
+      if (!err.response){
+        // timeout
+        throw new Error("Could not connect to Jobly API at this time.");
+      }
       throw new Error(err.response.data.error.message);
     }
   }
@@ -37,7 +41,7 @@ class JoblyAPI {
       let res = await this.request(`companies/${handle}`);
       return res.data.company;
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
     }
   }
 
@@ -56,7 +60,7 @@ class JoblyAPI {
       let res = await this.request(`companies`, query);
       return res.data.companies;
     } catch (err) {
-      console.error(err);
+     console.error(err.message);
     }
   }
 
@@ -66,7 +70,7 @@ class JoblyAPI {
       let res = await this.request(`jobs/${id}`);
       return res.data.job;
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
     }
   }
 
@@ -85,7 +89,7 @@ class JoblyAPI {
       let res = await this.request(`jobs`, query);
       return res.data.jobs;
     } catch (err) {
-      console.error(err);
+      console.error(err.message);
     }
   }
 
@@ -95,7 +99,7 @@ class JoblyAPI {
       let res = await this.request(`users/${username}`);
       return res.data.user;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 
@@ -120,7 +124,7 @@ class JoblyAPI {
       let res = await this.request(`users/${username}/jobs/${jobID}`, {}, "post");
       return res.data;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 
@@ -152,7 +156,7 @@ class JoblyAPI {
       let res = await this.request(`users/${username}`, {}, "delete");
       return res.data;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 

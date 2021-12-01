@@ -3,7 +3,7 @@ import { CardGroup } from "reactstrap";
 import UserContext from "../../UserContext";
 import { useContext } from "react";
 
-const JobList = ({jobs}) => {
+const JobList = ({jobs, columns=3}) => {
   const { currentUser, apply } = useContext(UserContext);
   const appliedTo = new Set(currentUser.applications.map(a => a.id));
 
@@ -11,16 +11,16 @@ const JobList = ({jobs}) => {
   const jobGroups = [];
   let count = 0;
   for (let i = 0; i < jobs.length; i++){
-    if (i % 3 === 0) jobGroups.push([]);
+    if (i % columns === 0) jobGroups.push([]);
     
     jobGroups[count].push(jobs[i]);
     
-    if (i % 3 === 2) count++;
+    if (i % columns === columns-1) count++;
   }
   /** Fill out job groups with data for empty, placeholder job cards */
   const last = jobGroups.length-1;
-  if (Array.isArray(jobGroups[last]) && jobGroups[last].length < 3){
-    const remaining = 3 - jobGroups[last].length;
+  if (Array.isArray(jobGroups[last]) && jobGroups[last].length < columns){
+    const remaining = columns - jobGroups[last].length;
     for (let i = 0; i < remaining; i++){
       jobGroups[last].push({id: `ph${last}${i}`, placeholder: true})
     }

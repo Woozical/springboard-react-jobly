@@ -30,6 +30,7 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
       const [editResult, apiResponse] = await submitCallback(formData);
       if (!editResult) {
         // On a failed attempt, move the API's error response into feedback state
+        setFormData(f => ({...f, password: ""}));
         setFormFeedback({...DEFAULT_FEEDBACK_STATE, apiResponse, responseClass: "text-danger"});
       } else {
         setFormData({...apiResponse, password: ""});

@@ -13,7 +13,7 @@ const CompanyDetailPage = () => {
   /** Load in company data on initial page render */
   useEffect( () => {
     async function loadCompany(){
-      const c = await JoblyAPI.getCompany(handle);
+      const c = await JoblyAPI.getCompany(handle) || null;
       setCompany(c);
     }
     loadCompany();
@@ -30,7 +30,7 @@ const CompanyDetailPage = () => {
         <hr />
         <div className="text-start">
           <h5>Job Listings</h5>
-          <JobList jobs={company.jobs} />
+          <JobList columns={4} jobs={company.jobs} />
         </div>
       </div>
     </main>

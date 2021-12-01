@@ -4,7 +4,7 @@ import { validateFormData } from "../../utils";
 import schema from "../../schemas/LoginForm.json";
 
 const DEFAULT_STATE = {username: "", password: ""};
-const DEFAULT_FEEDBACK_STATE = {username: [], password: [], failedAuth: false};
+const DEFAULT_FEEDBACK_STATE = {username: [], password: [], apiResponse: ""};
 
 const LoginForm = ({submitCallback}) => {
   const [formData, setFormData] = useState(DEFAULT_STATE);
@@ -20,10 +20,10 @@ const LoginForm = ({submitCallback}) => {
     // Client-side form validation
     const res = validateFormData(formData, schema);
     if (res.success){
-      const loginAttempt = await submitCallback(formData);
+      const [loginAttempt, apiResponse] = await submitCallback(formData);
       // If the API did not respond with a success, clear all state and display fail message
       if (!loginAttempt){
-        setFormFeedback({...DEFAULT_FEEDBACK_STATE, failedAuth : true});
+        setFormFeedback({...DEFAULT_FEEDBACK_STATE, apiResponse});
         setFormData(DEFAULT_STATE);
       }
     } else {
@@ -61,7 +61,7 @@ const LoginForm = ({submitCallback}) => {
               {formFeedback.password.map((msg, i) => <small key={`password-${i}`}>{msg} <br/></small>)}
             </FormFeedback>
           </FormGroup>
-          {formFeedback.failedAuth && <p className="text-danger text-center">Incorrect username or password.</p> }
+          {formFeedback.apiResponse && <p className="text-danger text-center">{formFeedback.apiResponse}</p> }
           <div className="text-center">
             <Button color="primary">Submit</Button>
           </div>

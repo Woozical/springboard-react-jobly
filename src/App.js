@@ -46,10 +46,10 @@ const App = () => {
       localStorage.setItem("jobly-token", token);
       localStorage.setItem("jobly-username", user.username);
       setCurrentUser(user);
-      return true;
+      return [true, user];
     } catch (err) {
       console.error(err);
-      return false;
+      return [false, err.message];
     }
   }
 
@@ -88,28 +88,22 @@ const App = () => {
     } catch (err) {
       return [false, err.message];
     }
-    // if (token){
-    //   JoblyAPI.token = token;
-    //   const user = await JoblyAPI.patchUser(username, {firstName, lastName, email});
-    //   if (user){
-    //     localStorage.setItem("jobly-token", token);
-    //     localStorage.setItem("jobly-username", user.username);
-    //     setCurrentUser( (current) => {
-    //       return {...current, firstName, lastName, email}
-    //     });
-    //   }
-    // }
   }
 
   const apply = async (jobID) => {
     if (!currentUser) return;
-    const res = await JoblyAPI.applyToJob(jobID, currentUser.username);
-    if (res) setCurrentUser( (current) => ({...current, applications : [...current.applications, {id : jobID}]}))
+    try{
+      await JoblyAPI.applyToJob(jobID, currentUser.username);
+      setCurrentUser( (current) => ({...current, applications : [...current.applications, {id : jobID}]}));
+    } catch (err) {
+      console.error(err.message);
+    }
   }
 
   return (
     <UserContext.Provider value={ { currentUser, login, logout, signup, editUser, apply } }>
       <div className="App">
+        <div className="App-background bg-light"></div>
         <BrowserRouter>
           <NavBar />
           {loading ? <p>Loading...</p> : <PageRoutes />}

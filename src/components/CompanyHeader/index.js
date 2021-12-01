@@ -1,6 +1,4 @@
 const CompanyHeader = ({name, numEmployees, description, jobs, logo}) => {
-  // DEBUG: LOGO
-  logo = "http://joelburton-jobly.surge.sh/logos/logo2.png";
   return (
     <div className="CompanyHeader text-start">
       <div className="row">
