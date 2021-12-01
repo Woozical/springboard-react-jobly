@@ -34,3 +34,7 @@ nav a.active.navbar-brand {
 nav a:not(.navbar-brand):hover {
   color: #8bb9ff;
 }
+
+nav a.navbar-brand{
+  margin-left: 1rem;
+}
