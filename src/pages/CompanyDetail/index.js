@@ -24,9 +24,15 @@ const CompanyDetailPage = () => {
   if (!company) return <NotFound404 />
 
   return(
-    <main>
-      <CompanyHeader {...company} />
-      <JobList jobs={company.jobs} />
+    <main className="pt-5 pb-2 text-center">
+      <div className="container col-md-8 offset-md-2">
+        <CompanyHeader {...company} />
+        <hr />
+        <div className="text-start">
+          <h5>Job Listings</h5>
+          <JobList jobs={company.jobs} />
+        </div>
+      </div>
     </main>
   )
 }

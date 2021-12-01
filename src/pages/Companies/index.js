@@ -39,7 +39,7 @@ const CompaniesPage = () => {
   if (!auth) return redirect;
 
   return (
-  <main className="pt-5 text-center">
+  <main className="pt-5 pb-2 text-center">
     <div className="container col-md-8 offset-md-2">
       <h1>Companies</h1>
       <hr />
