@@ -168,6 +168,16 @@ class JoblyAPI {
       console.error(err);
     }
   }
+
+  /**  */
+  static async registerUser(data){
+    try {
+      let res = await this.request(`auth/register`, data, "post");
+      return res.data.token;
+    } catch (err) {
+      console.error(err);
+    }
+  }
 }
 
 
