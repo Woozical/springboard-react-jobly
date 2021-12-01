@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form, Card, CardBody, Label, FormGroup, Button, Input } from "reactstrap";
 
 const DEFAULT_STATE = {username: "", password: ""};
 
@@ -14,13 +15,24 @@ const LoginForm = ({submitCallback}) => {
     // setFormData(DEFAULT_STATE);
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="login-username">Username</label>
-      <input onChange={handleChange} type="text" id="login-username" name="username" value={formData.username} />
-      <label htmlFor="login-password">Password</label>
-      <input onChange={handleChange} type="password" id="login-password" name="password" value={formData.password} />
-      <button>Login</button>
-    </form>
+    <Card>
+      <CardBody>
+        <Form onSubmit={handleSubmit}>
+          <FormGroup>
+          <Label htmlFor="login-username">Username</Label>
+          <Input onChange={handleChange} type="text" id="login-username" name="username" value={formData.username} />
+          </FormGroup>
+
+          <FormGroup>
+          <Label htmlFor="login-password">Password</Label>
+          <Input onChange={handleChange} type="password" id="login-password" name="password" value={formData.password} />
+          </FormGroup>
+          <div className="text-center">
+            <Button color="primary">Login</Button>
+          </div>
+        </Form>
+      </CardBody>
+    </Card>
   )
 }
 
