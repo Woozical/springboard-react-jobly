@@ -19,20 +19,20 @@ const JobsPage = () => {
     loadJobs();
   }, [filters])
 
-  // const updateTitleFilter =({ name }) => {
-  //   setFilters(f => ({...f, title: name}))
-  // }
-
-  // const updateSalaryFilter = ({ minSalary }) => {
-  //   setFilters(f => ({...f, minSalary: +minSalary}));
-  // }
-
-  // const updateEquityFilter = ({ hasEquity }) => {
-  //   setFilters(f => ({...f, hasEquity}));
-  // }
-
   const updateFilters = (formData) => {
-    setFilters(f => ({...f, ...formData}));
+    const incFilters = {...filters, ...formData};
+    // Using queries on the API is a bit more intensive than getting all, so these code blocks will delete filters 
+    // when the fields are returned to their placeholder / "no value" state.
+    if ("minSalary" in formData && formData.minSalary === 0){
+      delete incFilters["minSalary"];
+    }
+    if ("hasEquity" in formData && formData.hasEquity === false){
+      delete incFilters["hasEquity"];
+    }
+    if ("title" in formData && formData.title === ""){
+      delete incFilters["title"];
+    }
+    setFilters(incFilters);
   }
 
   const [auth, redirect] = useAuthenticated("/login");
@@ -61,7 +61,8 @@ const JobsPage = () => {
                           ["$150,000+", 150000],
                           ["$200,000+", 200000],
                           ["$300,000+", 300000]]}
-                placeholder="Search by Minimum Salary" />
+                placeholder="Search by Minimum Salary"
+                maxValue={300000} />
             </div>
             <div className="col-lg-2 col-sm-3">
               <BooleanCheck fieldName="hasEquity" label="Require Equity" changeCallback={updateFilters} />

@@ -1,7 +1,6 @@
 import { useState } from "react"
-const DEFAULT_STATE = {name : ""};
 const NameSearchBar = ({ submitCallback, fieldName="name", placeholder="Search by name" }) => {
-  const [formData, setFormData] = useState(DEFAULT_STATE);
+  const [formData, setFormData] = useState({[fieldName] : ""});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
