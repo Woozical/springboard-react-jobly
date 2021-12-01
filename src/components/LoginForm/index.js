@@ -9,18 +9,21 @@ const DEFAULT_FEEDBACK_STATE = {username: [], password: [], failedAuth: false};
 const LoginForm = ({submitCallback}) => {
   const [formData, setFormData] = useState(DEFAULT_STATE);
   const [formFeedback, setFormFeedback] = useState(DEFAULT_FEEDBACK_STATE);
+  
   const handleChange = (evt) => {
     const {name, value} = evt.target;
     setFormData( data => ({...data, [name] : value}) );
   }
+  
   const handleSubmit = async (evt) => {
     evt.preventDefault();
+    // Client-side form validation
     const res = validateFormData(formData, schema);
     if (res.success){
       const loginAttempt = await submitCallback(formData);
-      console.log(loginAttempt);
+      // If the API did not respond with a success, clear all state and display fail message
       if (!loginAttempt){
-        setFormFeedback(f => ({...DEFAULT_FEEDBACK_STATE, failedAuth : true}));
+        setFormFeedback({...DEFAULT_FEEDBACK_STATE, failedAuth : true});
         setFormData(DEFAULT_STATE);
       }
     } else {
@@ -41,7 +44,7 @@ const LoginForm = ({submitCallback}) => {
               value={formData.username} 
               invalid={formFeedback.username.length > 0} />
               <FormFeedback>
-                {formFeedback.username.map(msg => <p>{msg}</p>)}
+                {formFeedback.username.map((msg, i) => <small key={`username-${i}`}>{msg} <br/></small>)}
               </FormFeedback>
           </FormGroup>
 
@@ -55,7 +58,7 @@ const LoginForm = ({submitCallback}) => {
             value={formData.password}
             invalid={formFeedback.password.length > 0} />
             <FormFeedback>
-              {formFeedback.password.map(msg => <p>{msg}</p>)}
+              {formFeedback.password.map((msg, i) => <small key={`password-${i}`}>{msg} <br/></small>)}
             </FormFeedback>
           </FormGroup>
           {formFeedback.failedAuth && <p className="text-danger text-center">Incorrect username or password.</p> }

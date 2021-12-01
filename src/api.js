@@ -25,8 +25,7 @@ class JoblyAPI {
       return await axios({ url, method, data, params, headers });
     } catch (err) {
       console.error("API Error:", err.response);
-      let message = err.response.data.message;
-      throw Array.isArray(message) ? message : [message];
+      throw new Error(err.response.data.error.message);
     }
   }
 
@@ -96,7 +95,7 @@ class JoblyAPI {
       let res = await this.request(`users/${username}`);
       return res.data.user;
     } catch (err) {
-      console.erroro(err);
+      console.error(err);
     }
   }
 
@@ -175,7 +174,7 @@ class JoblyAPI {
       let res = await this.request(`auth/register`, data, "post");
       return res.data.token;
     } catch (err) {
-      console.error(err);
+      throw new Error(err.message);
     }
   }
 }

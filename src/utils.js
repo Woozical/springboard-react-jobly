@@ -16,13 +16,23 @@ function validateFormData(formData, schema){
   const validateMinLength = (input, min) => (input.length >= min);
   const validateMaxLength = (input, max) => (input.length <= max);
   const validateType = (input, type) => (typeof input === type);
+  
+  const validateFormat = (input, format) => {
+    switch (format){
+      case "email":
+        return (input.includes("@"));
+      default:
+        throw new Error(`Error: attempted to validate with unsupported format: ${format}`)
+    }
+  }
+  
   const errors = {};
   for (let field of Object.keys(schema)){
     errors[field] = [];
     for (let validator of Object.keys(schema[field])){
       switch (validator){
         case "required":
-          if (!validateRequired(formData[field])) errors[field].push("This field is required");
+          if (!validateRequired(formData[field])) errors[field].push("This field is required.");
           break;
         case "minLength":
           if (!validateMinLength(formData[field], schema[field][validator])){
@@ -37,6 +47,11 @@ function validateFormData(formData, schema){
         case "type":
           if (!validateType(formData[field], schema[field][validator])){
             errors[field].push(`This field's must be of type ${schema[field][validator]}.`);
+          }
+          break;
+        case "format":
+          if (!validateFormat(formData[field], schema[field][validator])){
+            errors[field].push(`This field does not follow ${schema[field][validator]} format.`);
           }
           break;
         default:

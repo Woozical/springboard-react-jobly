@@ -22,8 +22,9 @@ const App = () => {
       const user = await JoblyAPI.getUserApps(username, true);
       if (user){
         setCurrentUser(user);
-        setIsLoading(false);
+        
       }
+      setIsLoading(false);
     }
 
     const localToken = localStorage.getItem("jobly-token");
@@ -60,15 +61,16 @@ const App = () => {
   }
   // To do: Improve API error response handling
   const signup = async ({username, password, firstName, lastName, email}) => {
-    const token = await JoblyAPI.registerUser({username, password, firstName, lastName, email});
-    if (token){
-      JoblyAPI.token = token;
+    try {
+      const token = await JoblyAPI.registerUser({username, password, firstName, lastName, email});
+      JoblyAPI.token = token
       localStorage.setItem("jobly-token", token);
       localStorage.setItem("jobly-username", username);
       setCurrentUser({username, firstName, lastName, email, applications: [], isAdmin : false});
-      return true;
+      return [true, token];
+    } catch (err) {
+      return [false, err.message]
     }
-    return false;
   }
 
   const editUser = async ({username, password, firstName, lastName, email}) => {
