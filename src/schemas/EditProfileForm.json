@@ -1,0 +1,23 @@
+{
+  "firstName" : {
+    "maxLength" : 30,
+    "type" : "string",
+    "required": true
+  },
+  "lastName" : {
+    "maxLength" : 30,
+    "type" : "string",
+    "required" : true
+  },
+  "email" : {
+    "maxLength" : 60,
+    "minLength" : 6,
+    "type" : "string",
+    "format" : "email",
+    "required" : true
+  },
+  "password" : {
+    "required" : true,
+    "type" : "string"
+  }
+}
