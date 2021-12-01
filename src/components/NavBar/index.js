@@ -1,10 +1,12 @@
 import { Collapse, Navbar, NavbarToggler, NavItem, Nav } from "reactstrap";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import UserContext from "../../UserContext";
 import "./style.css";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { currentUser, logout } = useContext(UserContext);
 
   const toggleOpen = () => {
     setIsOpen(n => !n);
@@ -25,15 +27,25 @@ const NavBar = () => {
             <NavItem>
               <NavLink to="/jobs">Jobs</NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink to="/profile">Profile</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/login">Login</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/signup">Sign Up</NavLink>
-            </NavItem>
+            { currentUser ?
+              <>
+              <NavItem>
+                <NavLink to="/profile">{currentUser.username}</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/" onClick={logout}>Logout</NavLink>
+              </NavItem>
+              </>
+              :
+              <>
+              <NavItem>
+                <NavLink to="/login">Login</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/signup">Sign Up</NavLink>
+              </NavItem>
+              </>
+            }
           </Nav>
         
         </Collapse>

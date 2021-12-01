@@ -9,7 +9,7 @@ import JoblyAPI from './api';
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
-  /** Component Mount, attempt to read a user info from local storage */
+  /** Component Mount, attempt to read user info from local storage */
   useEffect( () => {
     async function loadUser(token, username){
       JoblyAPI.token = token;
@@ -36,8 +36,15 @@ const App = () => {
     }
   }
 
+  const logout = () => {
+    localStorage.setItem("jobly-token", "");
+    localStorage.setItem("jobly-username", "");
+    JoblyAPI.token = "";
+    setCurrentUser(null);
+  }
+
   return (
-    <UserContext.Provider value={ { currentUser, login } }>
+    <UserContext.Provider value={ { currentUser, login, logout } }>
       <div className="App">
         <BrowserRouter>
           <NavBar />
