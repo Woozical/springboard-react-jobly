@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Form, Card, CardBody, Label, FormGroup, Button, Input } from "reactstrap";
 
 const EditProfileForm = ({currentUser, submitCallback}) => {
   const [formData, setFormData] = useState({...currentUser, password: ""});
@@ -12,19 +13,36 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
     // setFormData(DEFAULT_STATE);
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="edit-username">Username</label>
-      <input onChange={handleChange} type="text" disabled id="edit-username" name="username" value={formData.username} />
-      <label htmlFor="edit-email">Email</label>
-      <input onChange={handleChange} type="email" id="edit-email" name="email" value={formData.email} />
-      <label htmlFor="edit-firstName">First name</label>
-      <input onChange={handleChange} type="text" id="edit-firstName" name="firstName" value={formData.firstName} />
-      <label htmlFor="edit-lastName">Last name</label>
-      <input onChange={handleChange} type="text" id="edit-lastName" name="lastName" value={formData.lastName} />
-      <label htmlFor="edit-password">Confirm Password</label>
-      <input onChange={handleChange} type="password" id="edit-password" name="password" value={formData.password} />
-      <button>Save Changes</button>
-    </form>
+    <Card>
+      <CardBody>
+      <Form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="edit-username"><b>Username</b></Label>
+          <Input onChange={handleChange} type="text" disabled id="edit-username" name="username" value={formData.username} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="edit-email"><b>Email</b></Label>
+          <Input onChange={handleChange} type="email" id="edit-email" name="email" value={formData.email} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="edit-firstName"><b>First Name</b></Label>
+          <Input onChange={handleChange} type="text" id="edit-firstName" name="firstName" value={formData.firstName} />
+        </FormGroup>       
+        <FormGroup>
+          <Label htmlFor="edit-lastName"><b>Last Name</b></Label>
+          <Input onChange={handleChange} type="text" id="edit-lastName" name="lastName" value={formData.lastName} />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="edit-password"><b>Confirm Password:</b></Label>
+          <Input onChange={handleChange} type="password" id="edit-password" name="password" value={formData.password} />
+        </FormGroup>
+        <div className="text-end">
+          <Button color="success">Save Changes</Button>
+        </div>
+      </Form>
+      </CardBody>
+    </Card>
+
   )
 }
 

@@ -19,16 +19,16 @@ const LoginForm = ({submitCallback}) => {
       <CardBody>
         <Form onSubmit={handleSubmit}>
           <FormGroup>
-          <Label htmlFor="login-username">Username</Label>
+          <Label htmlFor="login-username"><b>Username</b></Label>
           <Input onChange={handleChange} type="text" id="login-username" name="username" value={formData.username} />
           </FormGroup>
 
           <FormGroup>
-          <Label htmlFor="login-password">Password</Label>
+          <Label htmlFor="login-password"><b>Password</b></Label>
           <Input onChange={handleChange} type="password" id="login-password" name="password" value={formData.password} />
           </FormGroup>
           <div className="text-center">
-            <Button color="primary">Login</Button>
+            <Button color="primary">Submit</Button>
           </div>
         </Form>
       </CardBody>
