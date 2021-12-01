@@ -26,10 +26,15 @@ const JobsPage = () => {
   if (!auth) return redirect;
 
   return (
-  <main>
-    <h1>Jobs</h1>
-    <NameSearchBar submitCallback={updateTitleFilter}/>
-    <JobList jobs={jobs} />
+    <main className="pt-5 text-center">
+      <div className="container col-md-6 offset-md-3 col-lg-8 offset-lg-2">
+        <h1>Jobs</h1>
+        <hr />
+        <div className="text-start">
+          <NameSearchBar submitCallback={updateTitleFilter}/>
+          <JobList jobs={jobs} />
+        </div>
+      </div>
   </main>
   );
 }

@@ -1,13 +1,17 @@
 import { NavLink } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
+import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from "reactstrap";
 import { addCommas } from "../../utils";
 
 
-const JobCard = ({id, title, salary, equity, companyHandle, companyName, applied, apply}) => {
+const JobCard = ({id, title, salary, equity, companyHandle, companyName, applied, apply, placeholder}) => {
   const salaryFormatted = addCommas(salary);
 
   const handleClick = () => {
     apply(id);
+  }
+
+  if (placeholder){
+    return <Card className="JobCard bg-light"></Card>
   }
 
   return (
@@ -20,7 +24,10 @@ const JobCard = ({id, title, salary, equity, companyHandle, companyName, applied
           <br />
           Equity: {+equity ? equity : 'None'}
         </CardText>
-        {applied ? <button disabled>Applied</button> : <button onClick={handleClick}>Apply</button>}
+        {applied ?
+          <Button outline color="primary" disabled>Applied</Button>
+          :
+          <Button color="primary" onClick={handleClick}>Apply</Button>}
       </CardBody>
     </Card>
   )
