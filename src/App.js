@@ -87,8 +87,14 @@ const App = () => {
     }
   }
 
+  const apply = async (jobID) => {
+    if (!currentUser) return;
+    const res = await JoblyAPI.applyToJob(jobID, currentUser.username);
+    if (res) setCurrentUser( (current) => ({...current, applications : [...current.applications, {id : jobID}]}))
+  }
+
   return (
-    <UserContext.Provider value={ { currentUser, login, logout, signup, editUser } }>
+    <UserContext.Provider value={ { currentUser, login, logout, signup, editUser, apply } }>
       <div className="App">
         <BrowserRouter>
           <NavBar />
