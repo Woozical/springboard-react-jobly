@@ -1,6 +1,5 @@
 import CompanyCard from "../CompanyCard";
 
-// DEBUG: LOGO
 const CompanyList = ({companies}) => {
   return (
     <div>
