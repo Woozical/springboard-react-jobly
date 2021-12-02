@@ -2,6 +2,7 @@ import JobList from "../../components/JobList";
 import NameSearchBar from "../../components/NameSearchBar";
 import NumberDrop from "../../components/NumberDrop";
 import BooleanCheck from "../../components/BooleanCheck";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import JoblyAPI from "../../api";
 import { useEffect, useState } from "react";
 import { useAuthenticated } from "../../hooks";
@@ -9,12 +10,14 @@ import { useAuthenticated } from "../../hooks";
 const JobsPage = () => {
   const [jobs, setJobs] = useState([]);
   const [filters, setFilters] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   /** Load in Job data from API on initial render of this page. Fetch new data whenever our filters change. */
   useEffect( () => {
     async function loadJobs(){
       const j = await JoblyAPI.getJobs(filters) || [];
       setJobs(j);
+      setIsLoading(false);
     }
     loadJobs();
   }, [filters])
@@ -43,6 +46,7 @@ const JobsPage = () => {
       <div className="container col-md-8 offset-md-2">
         <h1>Jobs</h1>
         <hr />
+        { isLoading ? <LoadingSpinner /> :
         <div className="text-start">
           <div className="row">
             <div className="col-lg-6 col-sm-12">
@@ -71,6 +75,7 @@ const JobsPage = () => {
           <hr />
           <JobList jobs={jobs} />
         </div>
+        }
       </div>
   </main>
   );

@@ -5,9 +5,11 @@ import JobList from "../../components/JobList";
 import CompanyHeader from "../../components/CompanyHeader";
 import NotFound404 from "../../components/NotFound404";
 import JoblyAPI from "../../api";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
 const CompanyDetailPage = () => {
   const [company, setCompany] = useState({name: "", numEmployees: 0, description: "", jobs: []});
+  const [isLoading, setIsLoading] = useState(true);
   const { handle } = useParams();
 
   /** Load in company data on initial page render */
@@ -15,6 +17,7 @@ const CompanyDetailPage = () => {
     async function loadCompany(){
       const c = await JoblyAPI.getCompany(handle) || null;
       setCompany(c);
+      setIsLoading(false);
     }
     loadCompany();
   }, [handle]);
@@ -25,7 +28,9 @@ const CompanyDetailPage = () => {
 
   return(
     <main className="pt-5 pb-2 text-center">
+      { isLoading ? <LoadingSpinner withText /> :
       <div className="container col-md-8 offset-md-2">
+        
         <CompanyHeader {...company} />
         <hr />
         <div className="text-start">
@@ -33,6 +38,7 @@ const CompanyDetailPage = () => {
           <JobList columns={4} jobs={company.jobs} />
         </div>
       </div>
+      }
     </main>
   )
 }

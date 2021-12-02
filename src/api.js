@@ -1,6 +1,4 @@
 import axios from "axios";
-// For now, use a testing auth token
-import token from './TEST_TOKEN';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -172,7 +170,17 @@ class JoblyAPI {
     }
   }
 
-  /**  */
+  /** POSTS to /auth/register with given data to create a new user entry
+   *  and receive an auth token that corresponds with that user.
+   *  Data must match this schema:
+   *  {
+   *       "username": string, max 30 chars,
+   *       "password": string, min 5 chars, max 20 chars,
+   *       "firstName": string, max 30 chars,
+   *       "lastName": string, max 30 chars,
+   *       "email": string, email format, min 6 chars, max 60 chars
+   *   }
+   */
   static async registerUser(data){
     try {
       let res = await this.request(`auth/register`, data, "post");
@@ -182,8 +190,5 @@ class JoblyAPI {
     }
   }
 }
-
-
-JoblyAPI.token = token;
 
 export default JoblyAPI;

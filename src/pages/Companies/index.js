@@ -1,6 +1,7 @@
 import CompanyList from "../../components/CompanyList";
 import NameSearchBar from "../../components/NameSearchBar";
 import NumberDrop from "../../components/NumberDrop";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import JoblyAPI from "../../api";
 import { useEffect, useState } from "react";
 import { useAuthenticated } from "../../hooks";
@@ -9,12 +10,14 @@ import { useAuthenticated } from "../../hooks";
 const CompaniesPage = () => {
   const [companies, setCompanies] = useState([]);
   const [filters, setFilters] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   /** Load in Company data from API on initial render of this page. Fetch new data whenever our filters change. */
   useEffect( () => {
     async function loadCompanies(){
       const companies = await JoblyAPI.getCompanies(filters) || [];
       setCompanies(companies);
+      setIsLoading(false);
     }
     loadCompanies();
   }, [filters])
@@ -43,6 +46,7 @@ const CompaniesPage = () => {
     <div className="container col-md-8 offset-md-2">
       <h1>Companies</h1>
       <hr />
+      {isLoading ? <LoadingSpinner /> :
       <div className="text-start">
         <div className="row">
           <div className="col-md-6 col-sm-12">
@@ -87,6 +91,7 @@ const CompaniesPage = () => {
         <hr />
         <CompanyList companies={companies} />
       </div>
+      }
     </div>
   </main>
   );

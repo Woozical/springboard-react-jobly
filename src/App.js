@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import PageRoutes from './Routes';
 import NavBar from './components/NavBar';
+import LoadingSpinner from './components/LoadingSpinner';
 import './App.css';
 import { useState, useEffect } from 'react';
 import UserContext from './UserContext';
@@ -106,7 +107,7 @@ const App = () => {
         <div className="App-background bg-light"></div>
         <BrowserRouter>
           <NavBar />
-          {loading ? <p>Loading...</p> : <PageRoutes />}
+          {loading ? <LoadingSpinner withText /> : <PageRoutes />}
         </BrowserRouter>
       </div>
     </UserContext.Provider>
