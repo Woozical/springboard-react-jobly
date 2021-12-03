@@ -12,7 +12,7 @@ const JobCard = ({id, title, salary, equity, companyHandle, companyName, applied
   }
 
   if (placeholder){
-    return <Card className="JobCard bg-light"></Card>
+    return <Card className="JobCard JobCard-placeholder"></Card>
   }
 
   return (

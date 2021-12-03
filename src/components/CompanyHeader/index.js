@@ -1,11 +1,11 @@
 const CompanyHeader = ({name, numEmployees, description, jobs, logoUrl}) => {
   return (
-    <div className="CompanyHeader text-start">
+    <section className="text-start">
       <div className="row">
         <h1 className="col-10">
           {name}
         </h1>
-        {logoUrl && <img className="col-2" src={logoUrl} alt={name} />}
+        {logoUrl && <img style={{objectFit: "contain"}} className="col-2" src={logoUrl} alt={name} />}
       </div>
       <div className="text-start">
         <h6 className="text-secondary">
@@ -13,7 +13,7 @@ const CompanyHeader = ({name, numEmployees, description, jobs, logoUrl}) => {
         </h6>
         <p>{description}</p>
       </div>
-    </div>
+    </section>
   )
 }
 

@@ -33,10 +33,10 @@ const CompanyDetailPage = () => {
         
         <CompanyHeader {...company} />
         <hr />
-        <div className="text-start">
+        <section className="text-start">
           <h5>Job Listings</h5>
           <JobList columns={4} jobs={company.jobs} />
-        </div>
+        </section>
       </div>
       }
     </main>

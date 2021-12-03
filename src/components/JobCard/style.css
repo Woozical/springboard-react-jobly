@@ -1,3 +1,14 @@
 .JobCard a{
   text-decoration: none;
 }
+
+.JobCard-placeholder{
+  display: none!important;
+}
+
+@media (min-width: 576px) {
+  .JobCard-placeholder {
+    background-color: #eeeeee!important;
+    display: block!important;
+  }
+}

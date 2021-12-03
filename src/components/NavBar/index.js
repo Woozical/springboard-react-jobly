@@ -13,7 +13,6 @@ const NavBar = () => {
   }
 
   return (
-    <div>
       <Navbar color="dark" expand="sm" dark>
         <NavLink to="/" className="navbar-brand">Jobly</NavLink>
         
@@ -50,7 +49,6 @@ const NavBar = () => {
         
         </Collapse>
       </Navbar>
-      </div>
   );
 }
 
