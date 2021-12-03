@@ -4,7 +4,7 @@ import "./style.css";
 
 const CompanyCard = ({handle, name, description, logoUrl}) => {
   return (
-    <Card className="CompanyCard pt-2 pb-2 mb-1">
+    <Card className="CompanyCard pt-2 pb-2">
         <CardBody>
           <CardTitle tag="h6" className="row">
             <Link className="col-sm-10 stretched-link" to={`/companies/${handle}`}>{name}</Link>

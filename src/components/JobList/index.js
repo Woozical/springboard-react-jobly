@@ -31,10 +31,10 @@ const JobList = ({jobs, columns=3}) => {
       {jobs.length ?
       jobGroups.map( (group, idx) => {
         return (
-        <CardGroup key={idx}>
+        <CardGroup className="mb-2" key={idx}>
           {group.map(j => <JobCard {...j} apply={apply} applied={appliedTo.has(j.id)} key={j.id} />)}
         </CardGroup>) })
-      : <p>No jobs found.</p>}
+      : <p className="text-center">No jobs found.</p>}
     </div>
   )
 }

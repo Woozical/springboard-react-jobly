@@ -1,11 +1,12 @@
 import CompanyCard from "../CompanyCard";
+import "./style.css";
 
 const CompanyList = ({companies}) => {
   return (
-    <div>
+    <div className="CompanyList">
       {companies.length ?
       companies.map( c => <CompanyCard {...c} key={c.handle} />)
-      : <p>No companies found.</p>}
+      : <p className="text-center">No companies found.</p>}
     </div>
   )
 }
