@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, FormFeedback, Card, CardBody, Label, FormGroup, Button, Input } from "reactstrap";
 import schema from "../../schemas/EditProfileForm.json";
 import { validateFormData } from "../../utils";
+import LoadingSpinner from "../LoadingSpinner";
 
 const DEFAULT_FEEDBACK_STATE = {
   username: [],
@@ -16,6 +17,7 @@ const DEFAULT_FEEDBACK_STATE = {
 const EditProfileForm = ({currentUser, submitCallback}) => {
   const [formData, setFormData] = useState({...currentUser, password: ""});
   const [formFeedback, setFormFeedback] = useState(DEFAULT_FEEDBACK_STATE);
+  const [awaitingAPI, setAwaitingAPI] = useState(false);
 
   const handleChange = (evt) => {
     const {name, value} = evt.target;
@@ -27,6 +29,7 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
     evt.preventDefault();
     const res = validateFormData(formData, schema);
     if (res.success){
+      setAwaitingAPI(true);
       const [editResult, apiResponse] = await submitCallback(formData);
       if (!editResult) {
         // On a failed attempt, move the API's error response into feedback state
@@ -36,6 +39,7 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
         setFormData({...apiResponse, password: ""});
         setFormFeedback({...DEFAULT_FEEDBACK_STATE, apiResponse: "Success! Changes saved.", responseClass: "text-success"});
       }
+      setAwaitingAPI(false);
     } else {
       setFormFeedback({...DEFAULT_FEEDBACK_STATE, ...res.errors});
     }
@@ -112,8 +116,10 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
           </FormFeedback>
         </FormGroup>
         {formFeedback.apiResponse && <p className={`text-center ${formFeedback.responseClass}`}>{formFeedback.apiResponse}</p>}
-        <div className="text-end">
-          <Button className="mt-4" block color="success">Save Changes</Button>
+        <div className="text-center">
+          {awaitingAPI ? <LoadingSpinner noPadding />
+          : <Button className="mt-4" block color="success">Save Changes</Button>
+          }
         </div>
       </Form>
       </CardBody>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Form, FormFeedback, Card, CardBody, Label, FormGroup, Button, Input } from "reactstrap";
 import schema from "../../schemas/SignupForm.json";
 import { validateFormData } from "../../utils";
+import LoadingSpinner from "../LoadingSpinner";
 
 const DEFAULT_STATE = {username: "", password: "", email: "", firstName: "", lastName: ""};
 const DEFAULT_FEEDBACK_STATE = {
@@ -17,6 +18,7 @@ const DEFAULT_FEEDBACK_STATE = {
 const SignupForm = ({submitCallback}) => {
   const [formData, setFormData] = useState(DEFAULT_STATE);
   const [formFeedback, setFormFeedback] = useState(DEFAULT_FEEDBACK_STATE);
+  const [awaitingAPI, setAwaitingAPI] = useState(false);
   
   const handleChange = (evt) => {
     const {name, value} = evt.target;
@@ -27,10 +29,12 @@ const SignupForm = ({submitCallback}) => {
     evt.preventDefault();
     const res = validateFormData(formData, schema);
     if (res.success){
+      setAwaitingAPI(true);
       const [signupResult, apiResponse] = await submitCallback(formData);
       if (!signupResult){
         // On a failed attempt, move the API's error response into feedback state
         setFormFeedback({...DEFAULT_FEEDBACK_STATE, apiResponse, failedSignup: true});
+        setAwaitingAPI(false);
       }
     } else {
       setFormFeedback({...DEFAULT_FEEDBACK_STATE, ...res.errors});
@@ -115,7 +119,7 @@ const SignupForm = ({submitCallback}) => {
           {formFeedback.failedSignup && <p className="text-center text-danger">{formFeedback.apiResponse}</p>}
 
           <div className="text-center">
-            <Button color="primary">Submit</Button>
+            { awaitingAPI ? <LoadingSpinner noPadding /> : <Button color="primary">Submit</Button> }
           </div>
         </Form>
       </CardBody>
