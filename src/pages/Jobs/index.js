@@ -65,7 +65,7 @@ const JobsPage = () => {
                           ["$150,000+", 150000],
                           ["$200,000+", 200000],
                           ["$300,000+", 300000]]}
-                placeholder="Search by Minimum Salary"
+                placeholder="Filter by Minimum Salary"
                 maxValue={300000} />
             </div>
             <div className="col-lg-2 col-sm-3">
