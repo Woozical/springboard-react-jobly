@@ -3,7 +3,7 @@ import { CardGroup } from "reactstrap";
 import UserContext from "../../UserContext";
 import { useContext } from "react";
 
-const JobList = ({jobs, columns=3}) => {
+const JobList = ({jobs, columns=3, doNotFill=false}) => {
   const { currentUser, apply } = useContext(UserContext);
   const appliedTo = new Set(currentUser.applications.map(a => a.id));
 
@@ -19,7 +19,7 @@ const JobList = ({jobs, columns=3}) => {
   }
   /** Fill out job groups with data for empty, placeholder job cards */
   const last = jobGroups.length-1;
-  if (Array.isArray(jobGroups[last]) && jobGroups[last].length < columns){
+  if (!doNotFill && Array.isArray(jobGroups[last]) && jobGroups[last].length < columns){
     const remaining = columns - jobGroups[last].length;
     for (let i = 0; i < remaining; i++){
       jobGroups[last].push({id: `ph${last}${i}`, placeholder: true})

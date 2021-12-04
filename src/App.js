@@ -9,6 +9,7 @@ import JoblyAPI from './api';
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [firstTimeLogin, setFirstTimeLogin] = useState(false);
   /** Outside of just looking nice, we NEED a loading component for App, as all pages look
    *  at currentUser, which is derived from an AJAX call. If we didn't have this, navigating
    *  directly to a page via address bar would not work as it would check currentUser (which isnt loaded yet)
@@ -68,6 +69,7 @@ const App = () => {
       localStorage.setItem("jobly-token", token);
       localStorage.setItem("jobly-username", username);
       setCurrentUser({username, firstName, lastName, email, applications: [], isAdmin : false});
+      setFirstTimeLogin(true);
       return [true, token];
     } catch (err) {
       return [false, err.message]
@@ -102,7 +104,7 @@ const App = () => {
   }
 
   return (
-    <UserContext.Provider value={ { currentUser, login, logout, signup, editUser, apply } }>
+    <UserContext.Provider value={ { currentUser, firstTimeLogin, login, logout, signup, editUser, apply } }>
       <div className="App">
         <div className="App-background bg-light"></div>
         <BrowserRouter>

@@ -52,6 +52,7 @@ const EditProfileForm = ({currentUser, submitCallback}) => {
         <FormGroup>
           <Label htmlFor="edit-username"><b>Username</b></Label>
           <Input 
+            style = {{cursor: "not-allowed"}}
             onChange={handleChange}
             type="text"
             disabled

@@ -35,7 +35,7 @@ const CompanyDetailPage = () => {
         <hr />
         <section className="text-start">
           <h5>Job Listings</h5>
-          <JobList columns={4} jobs={company.jobs} />
+          <JobList doNotFill columns={4} jobs={company.jobs} />
         </section>
       </div>
       }

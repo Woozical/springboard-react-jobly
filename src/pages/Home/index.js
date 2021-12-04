@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 const HomePage = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, firstTimeLogin } = useContext(UserContext);
   return (
     <main className="pt-3 pb-2 text-center">
       <BackgroundVideo videoSrc={splashVid} opacity={0.2} />
@@ -15,7 +15,7 @@ const HomePage = () => {
         <p >All the jobs in one convenient place.</p>
         <br />
         { currentUser ?
-          <h3>Welcome back, {currentUser.firstName}!</h3>
+          <h3>Welcome{firstTimeLogin ?  "" : " back"}, {currentUser.firstName}!</h3>
           :
           <div className="row">
             <Link className="col-sm-3 offset-sm-2 mt-2 btn btn-lg btn-primary mr-2" to="/login">Login</Link>
