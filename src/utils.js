@@ -20,7 +20,10 @@ function validateFormData(formData, schema){
   const validateFormat = (input, format) => {
     switch (format){
       case "email":
-        return (input.includes("@"));
+        const atIdx = input.indexOf("@");
+        if (atIdx <= 0) return false;
+        const dotIdx = input.slice(atIdx).indexOf(".");
+        return ((dotIdx > 1) && (dotIdx < input.slice(atIdx).length - 1));
       default:
         throw new Error(`Error: attempted to validate with unsupported format: ${format}`)
     }
